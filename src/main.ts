@@ -20,8 +20,10 @@ async function bootstrap() {
   app.use(compression());
   app.use(morgan('dev'));
 
-  await app.listen(configService.get('app.port')).then(() => {
-    Logger.log('Server listening on port ' + configService.get('app.port'));
-  }, configService.get('app.host'));
+  await app
+    .listen(configService.get('app.port'), configService.get('app.host'))
+    .then(() => {
+      Logger.log('Server listening on port ' + configService.get('app.port'));
+    });
 }
 bootstrap();
