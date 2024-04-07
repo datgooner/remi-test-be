@@ -1,6 +1,6 @@
 import { SALT_WORK_FACTOR } from '@/constants';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 import { HydratedDocument, Model } from 'mongoose';
 
 export interface UserMethods {

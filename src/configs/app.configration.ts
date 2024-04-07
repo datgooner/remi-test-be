@@ -12,7 +12,7 @@ export default (): Configuration => ({
     name: process.env['APP_NAME'],
     method: process.env['APP_SERVER_METHOD'],
     host: process.env['APP_SERVER_HOST'],
-    port: +process.env['APP_SERVER_PORT'],
+    port: +process.env['PORT'],
     cors: {
       origin: process.env['SECURE_CORS_ORIGIN'],
       methods: process.env['SECURE_CORS_METHODS'],

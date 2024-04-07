@@ -14,10 +14,8 @@ services:
       # This ensures that the NestJS container manages the node_modules folder
       # rather than synchronizes it with the host machine
       - /app/node_modules
-    env_file:
-      - docker.env
+    # env_file:
+    #   - docker.env
     ports:
       - 8082:8082
-    networks:
-      - nest
     command: yarn dev
