@@ -8,6 +8,7 @@ import { UserModule } from './modules/user/user.module';
 import { YoutubeVideoModule } from './modules/youtube-video/youtube-video.module';
 import { VideoModule } from './modules/video/video.module';
 import { SocketModule } from './modules/socket/socket.module';
+import { HealthModule } from './modules/health/health.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { SocketModule } from './modules/socket/socket.module';
     YoutubeVideoModule,
     VideoModule,
     SocketModule,
+    HealthModule,
   ],
   controllers: [],
   providers: [
