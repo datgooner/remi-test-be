@@ -1,11 +1,11 @@
 import {
   YoutubeVideoDetailResponse,
   YoutubeVideoDetail,
-} from '@/interfaces/youtube-api.interface';
-import { BadRequestException, Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import axios, { AxiosInstance } from 'axios';
-import * as urlModule from 'url';
+} from "@/interfaces/youtube-api.interface";
+import { BadRequestException, Injectable } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
+import axios, { AxiosInstance } from "axios";
+import * as urlModule from "url";
 
 @Injectable()
 export class YoutubeVideoService {
@@ -14,8 +14,8 @@ export class YoutubeVideoService {
   instance?: AxiosInstance;
 
   constructor(private readonly configService: ConfigService) {
-    this.baseURL = configService.get('network.youtube.baseUrl');
-    this.apiKey = configService.get('network.youtube.apiKey');
+    this.baseURL = configService.get("network.youtube.baseUrl");
+    this.apiKey = configService.get("network.youtube.apiKey");
   }
 
   /**
@@ -26,7 +26,7 @@ export class YoutubeVideoService {
     this.instance = axios.create({
       baseURL: this.baseURL,
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       maxBodyLength: Infinity,
       timeout: 5000, // 5 seconds
@@ -42,12 +42,12 @@ export class YoutubeVideoService {
     // https://developers.google.com/youtube/v3/docs/videos
     const params = {
       id: videoId,
-      fields: 'items(id,snippet,statistics)',
-      part: 'snippet,statistics',
+      fields: "items(id,snippet,statistics)",
+      part: "snippet,statistics",
     };
     try {
       const videoResponse =
-        await this.getInstance().get<YoutubeVideoDetailResponse>('/videos', {
+        await this.getInstance().get<YoutubeVideoDetailResponse>("/videos", {
           params: this.buildAuthorizeParams(params),
         });
       const videoItems = videoResponse.data?.items;
@@ -59,7 +59,7 @@ export class YoutubeVideoService {
 
       return video;
     } catch (error) {
-      throw new BadRequestException('Invalid video');
+      throw new BadRequestException("Invalid video");
     }
   }
 
@@ -67,7 +67,7 @@ export class YoutubeVideoService {
     // Example
     // https://www.youtube.com/watch?v=vDWf50tdoyQ
     // https://youtu.be/vDWf50tdoyQ?si=YckQoPQ1Pe0NPF4O
-    const validStarts = ['https://www.youtube.com', 'https://youtu.be'];
+    const validStarts = ["https://www.youtube.com", "https://youtu.be"];
     const isStartWithNormalLink = url.startsWith(validStarts[0]);
     const isStartWithShortenLink = url.startsWith(validStarts[1]);
     const isValidStart = isStartWithNormalLink || isStartWithShortenLink;
@@ -82,7 +82,7 @@ export class YoutubeVideoService {
     }
 
     if (isStartWithShortenLink) {
-      const videoId = parsedUrl.pathname.replace('/', '');
+      const videoId = parsedUrl.pathname.replace("/", "");
       return { videoId, isValid: true };
     }
   }

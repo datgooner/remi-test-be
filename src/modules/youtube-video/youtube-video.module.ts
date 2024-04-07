@@ -1,5 +1,5 @@
-import { Module } from '@nestjs/common';
-import { YoutubeVideoService } from './youtube-video.service';
+import { Module } from "@nestjs/common";
+import { YoutubeVideoService } from "./youtube-video.service";
 
 @Module({
   providers: [YoutubeVideoService],

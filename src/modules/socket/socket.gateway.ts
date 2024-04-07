@@ -1,15 +1,15 @@
-import { SocketEvent } from '@/constants';
-import { Logger } from '@nestjs/common';
+import { SocketEvent } from "@/constants";
+import { Logger } from "@nestjs/common";
 import {
   OnGatewayInit,
   SubscribeMessage,
   WebSocketGateway,
   WebSocketServer,
-} from '@nestjs/websockets';
-import { Server, Socket } from 'socket.io';
-import { SocketService } from './socket.service';
+} from "@nestjs/websockets";
+import { Server, Socket } from "socket.io";
+import { SocketService } from "./socket.service";
 
-@WebSocketGateway({ cors: '*', path: '/socket.io' })
+@WebSocketGateway({ cors: "*", path: "/socket.io" })
 export class SocketGateway implements OnGatewayInit {
   @WebSocketServer() server: Server;
   // TODO: update to use redis
@@ -18,18 +18,18 @@ export class SocketGateway implements OnGatewayInit {
   constructor(private readonly socketService: SocketService) {}
 
   handleConnection(client: Socket) {
-    Logger.log('Client connected: ' + client.id);
+    Logger.log("Client connected: " + client.id);
   }
 
   handleDisconnect(client: Socket) {
     this.connectedUsers.delete(client.id);
     this.socketService.setConnectedUsers(this.connectedUsers);
-    Logger.log('Client disconnected: ' + client.id);
+    Logger.log("Client disconnected: " + client.id);
   }
 
   @SubscribeMessage(SocketEvent.Message)
   handleMessage(client: Socket, payload: any): void {
-    Logger.log('Received message from client: ' + payload);
+    Logger.log("Received message from client: " + payload);
   }
 
   @SubscribeMessage(SocketEvent.Authenticate)
@@ -38,7 +38,7 @@ export class SocketGateway implements OnGatewayInit {
     this.socketService.setConnectedUsers(this.connectedUsers);
 
     Logger.log(
-      `User ${userId} authenticated and mapped to socket ${client.id}`,
+      `User ${userId} authenticated and mapped to socket ${client.id}`
     );
   }
 

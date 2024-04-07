@@ -1,11 +1,11 @@
-import { IsEmail } from 'class-validator';
+import { IsEmail } from "class-validator";
 
 export class LoginDto {
   @IsEmail(
     {},
     {
-      message: 'Invalid Email',
-    },
+      message: "Invalid Email",
+    }
   )
   email: string;
 

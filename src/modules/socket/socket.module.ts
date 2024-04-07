@@ -1,6 +1,6 @@
-import { Module } from '@nestjs/common';
-import { SocketGateway } from './socket.gateway';
-import { SocketService } from './socket.service';
+import { Module } from "@nestjs/common";
+import { SocketGateway } from "./socket.gateway";
+import { SocketService } from "./socket.service";
 // import { SocketIoModule } from '@nestjs/platform-socket.io';
 
 @Module({

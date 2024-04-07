@@ -3,7 +3,7 @@ import {
   DatabaseConfig,
   NetworkConfig,
   SecurityConfig,
-} from '@/interfaces/configuration.interface';
+} from "@/interfaces/configuration.interface";
 
 export default interface Configuration {
   app: AppConfig;

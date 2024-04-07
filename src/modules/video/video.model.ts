@@ -1,6 +1,6 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, Model, Schema as MongooseSchema } from 'mongoose';
-import { User } from '../user/user.model';
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { HydratedDocument, Model, Schema as MongooseSchema } from "mongoose";
+import { User } from "../user/user.model";
 
 type VideoModel = Model<HydratedDocument<Video>>;
 
@@ -21,7 +21,7 @@ export class Video {
   @Prop()
   description: string;
 
-  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User' })
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: "User" })
   createBy: User;
 }
 

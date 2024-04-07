@@ -1,13 +1,13 @@
-import { AuthGuard } from '@/guards';
-import { Controller, Get, Request, UseGuards } from '@nestjs/common';
-import { UserService } from './user.service';
+import { AuthGuard } from "@/guards";
+import { Controller, Get, Request, UseGuards } from "@nestjs/common";
+import { UserService } from "./user.service";
 
-@Controller('users')
+@Controller("users")
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @UseGuards(AuthGuard)
-  @Get('me')
+  @Get("me")
   async getUserMe(@Request() req) {
     return await this.userService.getUserWithoutPasswordById(req.user.userId);
   }

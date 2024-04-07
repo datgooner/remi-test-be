@@ -1,6 +1,6 @@
-import { QueryPaginationDto } from '@/common/dto/query-pagination.dto';
-import { AuthGuard } from '@/guards';
-import { JwtUserPayload } from '@/interfaces';
+import { QueryPaginationDto } from "@/common/dto/query-pagination.dto";
+import { AuthGuard } from "@/guards";
+import { JwtUserPayload } from "@/interfaces";
 import {
   Body,
   Controller,
@@ -9,23 +9,23 @@ import {
   Query,
   Request,
   UseGuards,
-} from '@nestjs/common';
-import { CreateVideoDto } from './dto/create-video.dto';
-import { VideoService } from './video.service';
+} from "@nestjs/common";
+import { CreateVideoDto } from "./dto/create-video.dto";
+import { VideoService } from "./video.service";
 
-@Controller('videos')
+@Controller("videos")
 export class VideoController {
   constructor(private readonly videoService: VideoService) {}
 
   @UseGuards(AuthGuard)
-  @Post('youtube')
+  @Post("youtube")
   createYoutubeVideo(
     @Request() req: { user: JwtUserPayload },
-    @Body() createVideoDto: CreateVideoDto,
+    @Body() createVideoDto: CreateVideoDto
   ) {
     return this.videoService.createYoutubeVideo(
       createVideoDto,
-      req.user.userId,
+      req.user.userId
     );
   }
 

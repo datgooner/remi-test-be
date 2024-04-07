@@ -1,7 +1,7 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { YoutubeVideoService } from './youtube-video.service';
+import { Test, TestingModule } from "@nestjs/testing";
+import { YoutubeVideoService } from "./youtube-video.service";
 
-describe('YoutubeVideoService', () => {
+describe("YoutubeVideoService", () => {
   let service: YoutubeVideoService;
 
   beforeEach(async () => {
@@ -12,7 +12,7 @@ describe('YoutubeVideoService', () => {
     service = module.get<YoutubeVideoService>(YoutubeVideoService);
   });
 
-  it('should be defined', () => {
+  it("should be defined", () => {
     expect(service).toBeDefined();
   });
 });

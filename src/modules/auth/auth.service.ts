@@ -1,17 +1,17 @@
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from "@nestjs/common";
 
-import { LoginDto } from './dto';
+import { LoginDto } from "./dto";
 
-import { CREDENTIALS_INVALID } from '@/constants';
-import { UserService } from '@/modules/user/user.service';
-import { JwtService } from '@nestjs/jwt';
+import { CREDENTIALS_INVALID } from "@/constants";
+import { UserService } from "@/modules/user/user.service";
+import { JwtService } from "@nestjs/jwt";
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly userService: UserService,
     @Inject(JwtService)
-    private readonly jwtService: JwtService,
+    private readonly jwtService: JwtService
   ) {}
 
   /**

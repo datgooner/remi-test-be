@@ -1,20 +1,20 @@
-import { QueryPaginationDto } from '@/common/dto/query-pagination.dto';
-import { SocketService } from '@/modules/socket/socket.service';
-import { YoutubeVideoService } from '@/modules/youtube-video/youtube-video.service';
-import { BadRequestException, Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { UserService } from '../user/user.service';
-import { CreateVideoDto } from './dto/create-video.dto';
-import { Video, VideoModel } from './video.model';
-import { SocketEvent } from '@/constants';
+import { QueryPaginationDto } from "@/common/dto/query-pagination.dto";
+import { SocketService } from "@/modules/socket/socket.service";
+import { YoutubeVideoService } from "@/modules/youtube-video/youtube-video.service";
+import { BadRequestException, Injectable } from "@nestjs/common";
+import { InjectModel } from "@nestjs/mongoose";
+import { UserService } from "../user/user.service";
+import { CreateVideoDto } from "./dto/create-video.dto";
+import { Video, VideoModel } from "./video.model";
+import { SocketEvent } from "@/constants";
 
 @Injectable()
 export class VideoService {
   constructor(
-    @InjectModel('Video') private readonly videoModel: VideoModel,
+    @InjectModel("Video") private readonly videoModel: VideoModel,
     private readonly youtubeVideoService: YoutubeVideoService,
     private readonly userService: UserService,
-    private readonly socketService: SocketService,
+    private readonly socketService: SocketService
   ) {}
   async createYoutubeVideo(createVideoDto: CreateVideoDto, createById: string) {
     const createBy =
@@ -22,7 +22,7 @@ export class VideoService {
     const { url } = createVideoDto;
     const { isValid, videoId } = this.youtubeVideoService.parseYoutubeUrl(url);
     if (!isValid) {
-      throw new BadRequestException('Invalid youtube video url');
+      throw new BadRequestException("Invalid youtube video url");
     }
 
     const videoDetail =
@@ -37,7 +37,7 @@ export class VideoService {
     };
     await this.videoModel.create(youtubeVideo);
     this.socketService.emitEventToAll(SocketEvent.Notification, {
-      message: 'One new video has just been shared.',
+      message: "One new video has just been shared.",
       data: youtubeVideo,
     });
     return youtubeVideo;
@@ -50,11 +50,11 @@ export class VideoService {
     const totalPage = Math.floor((count - 1) / limit) + 1;
     const data = await this.videoModel
       .find()
-      .populate('createBy', '-password')
+      .populate("createBy", "-password")
       .limit(limit)
       .skip(skip)
       .sort({
-        createdAt: 'desc',
+        createdAt: "desc",
       })
       .exec();
     return {

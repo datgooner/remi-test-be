@@ -1,7 +1,7 @@
-import { SALT_WORK_FACTOR } from '@/constants';
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import * as bcrypt from 'bcryptjs';
-import { HydratedDocument, Model } from 'mongoose';
+import { SALT_WORK_FACTOR } from "@/constants";
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import * as bcrypt from "bcryptjs";
+import { HydratedDocument, Model } from "mongoose";
 
 export interface UserMethods {
   comparePassword: (candidatePassword: string) => Promise<boolean>;
@@ -18,11 +18,11 @@ export class User {
 }
 
 const UserSchema = SchemaFactory.createForClass(User);
-UserSchema.pre('save', function (next) {
+UserSchema.pre("save", function (next) {
   // eslint-disable-next-line @typescript-eslint/no-this-alias
   const user = this;
   // only hash the password if it has been modified (or is new)
-  if (!user.isModified('password')) return next();
+  if (!user.isModified("password")) return next();
   // generate a salt
   bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
     if (err) return next(err);
