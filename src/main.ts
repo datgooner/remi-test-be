@@ -22,6 +22,6 @@ async function bootstrap() {
 
   await app.listen(configService.get('app.port')).then(() => {
     Logger.log('Server listening on port ' + configService.get('app.port'));
-  });
+  }, configService.get('app.host'));
 }
 bootstrap();
