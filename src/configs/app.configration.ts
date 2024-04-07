@@ -9,35 +9,35 @@ dotenv.config({
 
 export default (): Configuration => ({
   app: {
-    name: process.env['APP.NAME'],
-    method: process.env['APP.SERVER.METHOD'],
-    host: process.env['APP.SERVER.HOST'],
-    port: +process.env['APP.SERVER.PORT'],
+    name: process.env['APP_NAME'],
+    method: process.env['APP_SERVER_METHOD'],
+    host: process.env['APP_SERVER_HOST'],
+    port: +process.env['APP_SERVER_PORT'],
     cors: {
-      origin: process.env['SECURE.CORS.ORIGIN'],
-      methods: process.env['SECURE.CORS.METHODS'],
-      allowedHeaders: process.env['SECURE.CORS.ALLOWED_HEADERS'],
-      exposedHeaders: process.env['SECURE.CORS.EXPOSED_HEADERS'],
+      origin: process.env['SECURE_CORS_ORIGIN'],
+      methods: process.env['SECURE_CORS_METHODS'],
+      allowedHeaders: process.env['SECURE_CORS_ALLOWED_HEADERS'],
+      exposedHeaders: process.env['SECURE_CORS_EXPOSED_HEADERS'],
     },
   },
   database: {
     mongo: {
-      dbname: process.env['MONGO.DBNAME'],
-      user: process.env['MONGO.USER'],
-      password: process.env['MONGO.PASSWORD'],
-      uri: `mongodb+srv://${process.env['MONGO.USER']}:${process.env['MONGO.PASSWORD']}@cluster0.j9vrnci.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`,
+      dbname: process.env['MONGO_DBNAME'],
+      user: process.env['MONGO_USER'],
+      password: process.env['MONGO_PASSWORD'],
+      uri: `mongodb+srv://${process.env['MONGO_USER']}:${process.env['MONGO_PASSWORD']}@cluster0.j9vrnci.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`,
     },
   },
   security: {
     jwt: {
-      secret: process.env['JWT.SECRET'],
-      tokenExpiry: +process.env['JWT.TOKEN_EXPIRY'] ?? 300,
+      secret: process.env['JWT_SECRET'],
+      tokenExpiry: +process.env['JWT_TOKEN_EXPIRY'] ?? 300,
     },
   },
   network: {
     youtube: {
-      baseUrl: process.env['YOUTUBE.API_BASE_URL'],
-      apiKey: process.env['YOUTUBE.API_KEY'],
+      baseUrl: process.env['YOUTUBE_API_BASE_URL'],
+      apiKey: process.env['YOUTUBE_API_KEY'],
     },
   },
 });
