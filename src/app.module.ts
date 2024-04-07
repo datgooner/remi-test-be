@@ -19,10 +19,6 @@ import { HealthModule } from './modules/health/health.module';
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (config: ConfigService) => {
-        console.log(
-          "🚀 ~  config.get('database.mongo.uri'):",
-          config.get('database.mongo.uri'),
-        );
         return {
           uri: config.get('database.mongo.uri')!,
           dbName: config.get('database.mongo.dbname')!,

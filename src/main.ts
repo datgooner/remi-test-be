@@ -20,15 +20,11 @@ async function bootstrap() {
   app.use(compression());
   app.use(morgan('dev'));
 
-  await app
-    .listen(configService.get('app.port'), configService.get('app.host'))
-    .then(() => {
-      Logger.log(
-        'Server listening on host ' +
-          configService.get('app.host') +
-          ':' +
-          configService.get('app.port'),
-      );
-    });
+  const PORT = configService.get('app.port') || 8082;
+  const HOST = configService.get('app.host') || '0.0.0.0';
+
+  await app.listen(PORT, HOST).then(() => {
+    Logger.log('Server listening on host ' + HOST + ':' + PORT);
+  });
 }
 bootstrap();

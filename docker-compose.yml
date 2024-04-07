@@ -1,0 +1,23 @@
+services:
+  api:
+    container_name: remi-test-be
+    image: remi-test-be-dev
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
+      # ✨ Target the dev stage
+      target: dev
+    # Mount host directory to docker container to support watch mode
+    volumes:
+      - .:/app
+      # This ensures that the NestJS container manages the node_modules folder
+      # rather than synchronizes it with the host machine
+      - /app/node_modules
+    env_file:
+      - docker.env
+    ports:
+      - 8082:8082
+    networks:
+      - nest
+    command: yarn dev
