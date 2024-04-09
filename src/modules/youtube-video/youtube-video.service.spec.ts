@@ -65,7 +65,7 @@ describe("YoutubeVideoService", () => {
 
       await expect(
         service.getYoutubeVideoByVideoId(mockVideoId)
-      ).rejects.toThrowError(BadRequestException);
+      ).rejects.toThrow(BadRequestException);
     });
   });
 

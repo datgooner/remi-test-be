@@ -64,7 +64,7 @@ export class VideoService {
     };
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} video`;
   }
 }
