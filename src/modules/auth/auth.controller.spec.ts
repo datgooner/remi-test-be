@@ -31,7 +31,9 @@ describe("AuthController", () => {
   describe("authenticate", () => {
     it("should return a token when valid credentials are provided", async () => {
       const token = "some-token";
-      jest.spyOn(authService, "authenticate").mockResolvedValueOnce({ token });
+      jest
+        .spyOn(authService, "authenticate")
+        .mockResolvedValueOnce({ token, message: "ok" });
 
       const loginDto: LoginDto = {
         email: "test@example.com",
@@ -40,7 +42,7 @@ describe("AuthController", () => {
 
       const result = await controller.authenticate(loginDto);
 
-      expect(result).toEqual({ token });
+      expect(result).toEqual({ token, message: "ok" });
     });
   });
 });

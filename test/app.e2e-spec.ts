@@ -1,7 +1,8 @@
-import { Test, TestingModule } from "@nestjs/testing";
+import { AppModule } from "@/app.module";
+import { closeMongoConnection } from "@/utils/test.utils";
 import { INestApplication } from "@nestjs/common";
+import { Test, TestingModule } from "@nestjs/testing";
 import * as request from "supertest";
-import { AppModule } from "./../src/app.module";
 
 describe("AppController (e2e)", () => {
   let app: INestApplication;
@@ -15,10 +16,12 @@ describe("AppController (e2e)", () => {
     await app.init();
   });
 
-  it("/ (GET)", () => {
-    return request(app.getHttpServer())
-      .get("/")
-      .expect(200)
-      .expect("Hello World!");
+  it("Health Check [GET /health]", () => {
+    return request(app.getHttpServer()).get("/health").expect(200);
+  });
+
+  afterAll(async () => {
+    await closeMongoConnection();
+    await app.close();
   });
 });

@@ -76,7 +76,7 @@ describe("AuthService", () => {
     (
       jest.spyOn(userService, "getUserModelByEmail") as jest.Mock
     ).mockReturnValue(mockedUser);
-    mockedUser.comparePassword.mockRejectedValue(false);
+    mockedUser.comparePassword.mockResolvedValue(false);
 
     await expect(service.authenticate(loginDto)).rejects.toThrow(
       BadRequestException

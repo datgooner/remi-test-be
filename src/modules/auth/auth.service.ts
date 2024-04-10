@@ -5,6 +5,7 @@ import { LoginDto } from "./dto";
 import { CREDENTIALS_INVALID } from "@/constants";
 import { UserService } from "@/modules/user/user.service";
 import { JwtService } from "@nestjs/jwt";
+import { JwtUserPayload } from "@/interfaces";
 
 @Injectable()
 export class AuthService {
@@ -22,20 +23,31 @@ export class AuthService {
     const { email, password } = loginDto;
 
     let userExisted = await this.userService.getUserModelByEmail(email);
+    let isRegistration = true;
 
     if (!userExisted) {
       const user = { email, password };
       userExisted = await this.userService.createUser(user);
     } else {
+      isRegistration = false;
       try {
-        await userExisted.comparePassword(password);
+        const match = await userExisted.comparePassword(password);
+        if (!match) {
+          throw new Error();
+        }
       } catch (error) {
         throw new BadRequestException(CREDENTIALS_INVALID);
       }
     }
-    const payload = { email: userExisted.email, sub: userExisted._id };
+    const payload: JwtUserPayload = {
+      email: userExisted.email,
+      userId: String(userExisted._id),
+    };
     return {
       token: this.jwtService.sign(payload),
+      message: isRegistration
+        ? "Registered successfully"
+        : "Login successfully",
     };
   }
 }
