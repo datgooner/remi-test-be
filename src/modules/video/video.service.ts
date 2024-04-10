@@ -36,10 +36,14 @@ export class VideoService {
       createBy,
     };
     await this.videoModel.create(youtubeVideo);
-    this.socketService.emitEventToAll(SocketEvent.Notification, {
-      message: "One new video has just been shared.",
-      data: youtubeVideo,
-    });
+    this.socketService.emitEventToAllExceptUserIds(
+      SocketEvent.Notification,
+      {
+        message: "One new video has just been shared.",
+        data: youtubeVideo,
+      },
+      [createById]
+    );
     return youtubeVideo;
   }
 

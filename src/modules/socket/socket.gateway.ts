@@ -12,18 +12,16 @@ import { SocketService } from "./socket.service";
 @WebSocketGateway({ cors: "*", path: "/socket.io" })
 export class SocketGateway implements OnGatewayInit {
   @WebSocketServer() server: Server;
-  // TODO: update to use redis
-  private connectedUsers: Map<string, string> = new Map();
 
   constructor(private readonly socketService: SocketService) {}
 
   handleConnection(client: Socket) {
     Logger.log("Client connected: " + client.id);
+    Logger.log("Client connected user id: " + client.handshake.query.userId);
+    client.data.userId = client.handshake.query.userId;
   }
 
   handleDisconnect(client: Socket) {
-    this.connectedUsers.delete(client.id);
-    this.socketService.setConnectedUsers(this.connectedUsers);
     Logger.log("Client disconnected: " + client.id);
   }
 
@@ -32,18 +30,7 @@ export class SocketGateway implements OnGatewayInit {
     Logger.log("Received message from client: " + payload);
   }
 
-  @SubscribeMessage(SocketEvent.Authenticate)
-  handleAuthentication(client: Socket, userId: string): void {
-    this.connectedUsers.set(client.id, userId);
-    this.socketService.setConnectedUsers(this.connectedUsers);
-
-    Logger.log(
-      `User ${userId} authenticated and mapped to socket ${client.id}`
-    );
-  }
-
   afterInit(server: Server) {
     this.socketService.setServer(server);
-    this.socketService.setConnectedUsers(this.connectedUsers);
   }
 }

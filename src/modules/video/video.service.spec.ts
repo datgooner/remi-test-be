@@ -65,7 +65,7 @@ describe("VideoService", () => {
         {
           provide: SocketService,
           useValue: {
-            emitEventToAll: jest.fn(),
+            emitEventToAllExceptUserIds: jest.fn(),
           },
         },
         {
@@ -93,11 +93,15 @@ describe("VideoService", () => {
       jest
         .spyOn(youtubeVideoService, "getYoutubeVideoByVideoId")
         .mockResolvedValue(mockVideoDetail);
+
       const result = await service.createYoutubeVideo(
         createVideoDto,
-        "createById"
+        mockYoutubeVideo.createBy._id
       );
-      expect(jest.spyOn(socketService, "emitEventToAll")).toHaveBeenCalled();
+      expect(
+        jest.spyOn(socketService, "emitEventToAllExceptUserIds")
+      ).toHaveBeenCalled();
+
       expect(result).toEqual(mockYoutubeVideo);
     });
 

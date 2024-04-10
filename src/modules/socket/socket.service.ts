@@ -5,14 +5,9 @@ import { Server, Socket } from "socket.io";
 @Injectable()
 export class SocketService {
   private server: Server;
-  private connectedUsers: Map<string, string>;
 
   public setServer(server: Server) {
     this.server = server;
-  }
-
-  public setConnectedUsers(_connectedUsers: Map<string, string>) {
-    this.connectedUsers = _connectedUsers;
   }
 
   public emitEventToAll(eventName: SocketEvent, eventData: any) {
@@ -34,7 +29,9 @@ export class SocketService {
     }
     const sockets = await this.server.fetchSockets();
     for (const socket of sockets) {
-      if (exceptUserIds.includes(this.connectedUsers.get(socket.id))) {
+      if (exceptUserIds.includes(socket.data.userId)) {
+        Logger.log("Skipped Emitting to: " + socket.id);
+        Logger.log("Skipped Emitting to user id: " + socket.data.userId);
         continue;
       }
       socket.emit(eventName, eventData);
