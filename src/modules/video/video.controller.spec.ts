@@ -85,7 +85,7 @@ describe("VideoController", () => {
   });
 
   describe("findAll", () => {
-    it("should return an array of videos", async () => {
+    it("should return paginated response of videos", async () => {
       const query: QueryPaginationDto = {
         skip: 0,
         limit: 10,
@@ -93,11 +93,7 @@ describe("VideoController", () => {
 
       const result = await controller.findAll(query);
 
-      expect(result).toStrictEqual({
-        data: [mockYoutubeVideo],
-        totalPage: 1,
-        totalCount: 2,
-      });
+      expect(result).toStrictEqual(paginatedResponse);
       expect(service.findAll).toHaveBeenCalledWith(query);
     });
   });
