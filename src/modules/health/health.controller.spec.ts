@@ -15,4 +15,11 @@ describe("HealthController", () => {
   it("should be defined", () => {
     expect(controller).toBeDefined();
   });
+
+  describe("healthCheck", () => {
+    it('should return "OK"', async () => {
+      const result = await controller.healthCheck();
+      expect(result).toBe("OK");
+    });
+  });
 });
