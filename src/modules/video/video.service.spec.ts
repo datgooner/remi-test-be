@@ -39,6 +39,7 @@ describe("VideoService", () => {
   let service: VideoService;
   let videoModel: VideoModel;
   let youtubeVideoService: YoutubeVideoService;
+  let socketService: SocketService;
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -80,6 +81,7 @@ describe("VideoService", () => {
     service = module.get<VideoService>(VideoService);
     videoModel = module.get<VideoModel>(getModelToken("Video"));
     youtubeVideoService = module.get<YoutubeVideoService>(YoutubeVideoService);
+    socketService = module.get<SocketService>(SocketService);
   });
 
   it("should be defined", () => {
@@ -87,7 +89,7 @@ describe("VideoService", () => {
   });
 
   describe("createYoutubeVideo", () => {
-    it("should create a new video", async () => {
+    it("should create a new video and send notification to all user", async () => {
       jest
         .spyOn(youtubeVideoService, "getYoutubeVideoByVideoId")
         .mockResolvedValue(mockVideoDetail);
@@ -95,6 +97,7 @@ describe("VideoService", () => {
         createVideoDto,
         "createById"
       );
+      expect(jest.spyOn(socketService, "emitEventToAll")).toHaveBeenCalled();
       expect(result).toEqual(mockYoutubeVideo);
     });
 
@@ -140,16 +143,6 @@ describe("VideoService", () => {
       expect(result.items).toEqual(mockVideos);
       expect(result.totalPage).toEqual(1);
       expect(result.totalCount).toEqual(2);
-    });
-  });
-
-  describe("findOne", () => {
-    it("should find and return a video by id", () => {
-      const id = "1";
-
-      const result = service.findOne(id);
-
-      expect(result).toEqual(`This action returns a #${id} video`);
     });
   });
 });

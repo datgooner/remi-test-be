@@ -63,8 +63,4 @@ export class VideoService {
       totalCount: count,
     };
   }
-
-  findOne(id: string) {
-    return `This action returns a #${id} video`;
-  }
 }
