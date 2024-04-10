@@ -1,6 +1,6 @@
 import { SocketEvent } from "@/constants";
 import { Injectable, Logger } from "@nestjs/common";
-import { Server, Socket } from "socket.io";
+import { Server } from "socket.io";
 
 @Injectable()
 export class SocketService {
@@ -37,9 +37,5 @@ export class SocketService {
       socket.emit(eventName, eventData);
       Logger.log("Emitted to: ", socket.id);
     }
-  }
-
-  public emitEventToClient(client: Socket, eventName: string, eventData: any) {
-    client.emit(eventName, eventData);
   }
 }
