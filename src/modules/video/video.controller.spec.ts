@@ -70,9 +70,9 @@ describe("VideoController", () => {
         },
       };
 
-      jest
-        .spyOn(service, "createYoutubeVideo")
-        .mockResolvedValueOnce(mockYoutubeVideo);
+      (
+        jest.spyOn(service, "createYoutubeVideo") as jest.Mock
+      ).mockResolvedValueOnce(mockYoutubeVideo);
 
       const result = await controller.createYoutubeVideo(req, createVideoDto);
 
