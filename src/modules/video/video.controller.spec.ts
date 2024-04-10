@@ -19,6 +19,11 @@ const mockYoutubeVideo = {
   videoId: "abc123",
   createBy: mockUser,
 };
+const paginatedResponse = {
+  data: [mockYoutubeVideo],
+  totalPage: 1,
+  totalCount: 2,
+};
 
 describe("VideoController", () => {
   let controller: VideoController;
@@ -26,7 +31,7 @@ describe("VideoController", () => {
 
   const mockService = {
     createYoutubeVideo: jest.fn(() => mockYoutubeVideo),
-    findAll: jest.fn(() => [mockYoutubeVideo]),
+    findAll: jest.fn(() => paginatedResponse),
   };
 
   beforeEach(async () => {
@@ -82,15 +87,17 @@ describe("VideoController", () => {
   describe("findAll", () => {
     it("should return an array of videos", async () => {
       const query: QueryPaginationDto = {
-        // Provide necessary fields for query
+        skip: 0,
+        limit: 10,
       };
-      const videos = []; // Mock the array of videos
-
-      jest.spyOn(service, "findAll").mockResolvedValueOnce(videos);
 
       const result = await controller.findAll(query);
 
-      expect(result).toBe(videos);
+      expect(result).toStrictEqual({
+        data: [mockYoutubeVideo],
+        totalPage: 1,
+        totalCount: 2,
+      });
       expect(service.findAll).toHaveBeenCalledWith(query);
     });
   });
