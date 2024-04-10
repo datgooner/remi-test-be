@@ -35,7 +35,7 @@ export class VideoService {
       videoId,
       createBy,
     };
-    await this.videoModel.create(youtubeVideo);
+    const result = await this.videoModel.create(youtubeVideo);
     this.socketService.emitEventToAllExceptUserIds(
       SocketEvent.Notification,
       {
@@ -44,7 +44,7 @@ export class VideoService {
       },
       [createById]
     );
-    return youtubeVideo;
+    return result;
   }
 
   async findAll(dto: QueryPaginationDto) {

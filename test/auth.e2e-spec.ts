@@ -26,7 +26,7 @@ describe("Authentication (e2e)", () => {
     await app.close();
   });
 
-  it("should sign up success and return JWT token", async () => {
+  it("should sign up success and return JWT token and correct message", async () => {
     const loginData = { email: "test@example.com", password: "password123" };
 
     const response = await request(app.getHttpServer())
@@ -36,6 +36,7 @@ describe("Authentication (e2e)", () => {
 
     const decodedToken = jwtService.decode(response.body.token);
     expect(decodedToken).toMatchObject({ email: loginData.email });
+    expect(response.body.message).toEqual("Registered successfully");
   });
 
   it("should sign in success and return JWT token", async () => {
@@ -48,6 +49,7 @@ describe("Authentication (e2e)", () => {
 
     const decodedToken = jwtService.decode(response.body.token);
     expect(decodedToken).toMatchObject({ email: loginData.email });
+    expect(response.body.message).toEqual("Login successfully");
   });
 
   it("should return 400 with invalid credentials", async () => {

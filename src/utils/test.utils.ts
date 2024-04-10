@@ -1,6 +1,6 @@
 import { MongoMemoryServer } from "mongodb-memory-server";
 
-let mongo: MongoMemoryServer;
+export let mongo: MongoMemoryServer;
 
 export const setupTestMongooseModule = async () => {
   mongo = await MongoMemoryServer.create();
