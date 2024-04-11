@@ -19,6 +19,7 @@ This project is a BE part of web application built with those tech stacks:
 ## Demo
 
 Check out the [demo](https://remi-funny-videos.vercel.app/) to see the platform in action!
+
 Check out the [health check endpoint](https://remi-test-be-production.up.railway.app/api/v1/health)
 
 ## Prerequisites
@@ -54,14 +55,17 @@ Copy example.env to .env or .env.local
 
 There are some field you must setup by yourself:
 
-  **Database**
+**Database**
+
 Replace MONGO_DBURI with your database uri
 
-  **JWT**
+**JWT**
+
 Replace JWT_SECRET as your secret key
 JWT_TOKEN_EXPIRY is the expiry time of token in second
 
-  **Youtube data api key**
+**Youtube data api key**
+
 The project is using Youtube data api to get the video data. You need to setup your API key, follow this [guideline](https://developers.google.com/youtube/v3/getting-started). After that, replace YOUTUBE_API_KEY with your key
 
 ## Running the Application
@@ -81,7 +85,7 @@ We have two choices to run the application on the local development
 
 We have setup a optimized docker file for development, to use it, start your docker instance, follow this step:
 
-   **Start docker compose:**
+**Start docker compose:**
 
 ```bash
    docker compose up
@@ -106,7 +110,7 @@ I'm using [railway](https://railway.app/) as a free hosting for this project. Th
 
 Wanna use other platform?
 
-  **Using docker build command**
+**Using docker build command**
 
 ```bash
     docker build . -t <your-container-name>:<version>
