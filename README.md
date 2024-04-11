@@ -10,6 +10,7 @@ This project is a BE part of web application built with those tech stacks:
 - MongoDb with Mongoose
 - @nestjs/passport for authentication
 - Socket io
+
 - Eslint, Prettier config
 - Husky, Lint-staged
 
