@@ -23,8 +23,6 @@ export default (): Configuration => ({
   database: {
     mongo: {
       dbname: process.env["MONGO_DBNAME"],
-      user: process.env["MONGO_USER"],
-      password: process.env["MONGO_PASSWORD"],
       uri: process.env["MONGO_DBURI"],
     },
   },

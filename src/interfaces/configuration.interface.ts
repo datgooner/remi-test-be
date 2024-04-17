@@ -9,7 +9,7 @@ export interface AppConfig {
 }
 
 export interface DatabaseConfig {
-  mongo: { dbname: string; user: string; password: string; uri: string };
+  mongo: { dbname: string; uri: string };
 }
 
 /**
