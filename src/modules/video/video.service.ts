@@ -51,7 +51,7 @@ export class VideoService {
     const { skip, limit } = dto;
 
     const count = await this.videoModel.countDocuments({}).exec();
-    const totalPage = Math.floor((count - 1) / limit) + 1;
+    const totalPage = Math.floor(count / limit) + 1;
     const data = await this.videoModel
       .find()
       .populate("createBy", "-password")
