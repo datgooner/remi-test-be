@@ -25,7 +25,7 @@ export default (): Configuration => ({
       dbname: process.env["MONGO_DBNAME"],
       user: process.env["MONGO_USER"],
       password: process.env["MONGO_PASSWORD"],
-      uri: `mongodb+srv://${process.env["MONGO_USER"]}:${process.env["MONGO_PASSWORD"]}@cluster0.j9vrnci.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`,
+      uri: process.env["MONGO_DBURI"],
     },
   },
   security: {

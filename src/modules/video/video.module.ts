@@ -16,5 +16,6 @@ import { SocketModule } from "@/modules/socket/socket.module";
   ],
   controllers: [VideoController],
   providers: [VideoService],
+  exports: [VideoService],
 })
 export class VideoModule {}

@@ -67,4 +67,8 @@ export class VideoService {
       totalCount: count,
     };
   }
+
+  async findById(videoId: string) {
+    return this.videoModel.findById(videoId);
+  }
 }
